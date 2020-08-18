@@ -1,0 +1,42 @@
+﻿@model taskplanner.ViewModels.AddTaskViewModel
+
+<h2>Добавить задачу</h2>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" asp-controller="TaskManage" asp-action="AddTask">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Name">Название</label><br />
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-10">
+                    <label class="col-md-10" asp-for="Text">Описание</label><br />
+                    <textarea class="col-md-10" asp-for="Text"></textarea>
+                    <span class="col-md-10" asp-validation-for="Text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+
+                    @Html.Label("Срок выполнения до:", null, new { @class = "control-label" })
+                    <div class="">
+                        <input asp-for="Deadline" type="date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <input type="hidden" asp-for="ParentId" value="@ViewBag.ParentId">
+                <div class="form-group col-md-4">
+                    <button type="submit" class="btn btn-outline-primary">Добавить</button>
+                </div>
+            </div>
+</form>
+    </div>
+</div>
+
+
+

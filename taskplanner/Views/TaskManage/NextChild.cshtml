@@ -1,0 +1,54 @@
+﻿@model List<taskplanner.ViewModels.ScheduledTaskViewModel>
+
+@foreach (var item in Model)
+{
+    string styleBord;
+    if (item.Done)
+    {
+        styleBord = "border-success";
+    }
+    else
+    {
+        styleBord = "border-warning";
+    }
+    <div style="margin-bottom: 5px" class="card @styleBord">
+        <div class="container" style="padding: 10px">
+            <div class="row">
+                <h4 class=" card-title col-md-6">
+                    @item.Name
+                </h4>
+                <div class="col-md-4">
+                    @if (item.Done)
+                    {
+                        <div>"Статус: ВЫПОЛНЕНО"</div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-controller="TaskManage" asp-action="DoneTask" asp-route-id="@item.Id">Отметить выполнение</a>
+                    }
+                </div>
+                <div class="col-md-2">
+                    <div>@item.Deadline.ToString("D")</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-text col-md-10">
+                    <div>@item.Text</div>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-primary" asp-controller="TaskManage" asp-action="AddTask" asp-route-id="@item.Id">Создать подзадачу</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left: 20px">
+        @if (item.ChildTask != null)
+        {
+            if (item.ChildTask.Count != 0)
+            {
+                @await Html.PartialAsync("NextChild", item.ChildTask);
+            }
+        }
+    </div>
+
+}

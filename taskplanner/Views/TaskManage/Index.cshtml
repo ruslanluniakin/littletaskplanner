@@ -1,0 +1,12 @@
+﻿@model IEnumerable<taskplanner.ViewModels.ScheduledTaskViewModel>
+
+@{
+    ViewBag.Title = "Управление задачами";
+}
+    <div class="container-fluid">
+        <a style="margin: 10px" class="btn btn-primary" asp-controller="TaskManage" asp-action="AddTask">Создать Задачу</a>
+        @if (Model != null)
+        {
+            @await Html.PartialAsync("NextChild", Model);
+        }
+    </div>
